@@ -25,7 +25,7 @@ podTemplate(label: 'mypod', containers: [
 		//second test
 		container('maven'){
 		sh 'mvn clean install  sonar:sonar  -Dsonar.host.url=http://192.168.99.1:9000  -Dsonar.login=287ea60b9ad30491df0b8e9867a52bbbbed9704b'
-'
+
 		
 		//sh'ls target/*'
 		}

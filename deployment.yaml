@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: ciproject
-        image: CIProject:latest
+        image: ciproject:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

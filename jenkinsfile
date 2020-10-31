@@ -13,24 +13,24 @@ podTemplate(label: 'mypod', containers: [
       node('mypod'){
 	    stage('Initialization'){
 		sh'echo "${WORKSPACE}"'
-		cleanWs()
+		//cleanWs()
 		}
 		stage('Git checkout'){
 		container('git'){
-		git credentialsId: 'bouda', url: 'https://github.com/MedHammedi/CI-Project'
+		git  url: 'https://github.com/belighmanai/CI-Project'
 		// this a comment
 		}
 		}
 		stage('build'){
 		//second test
 		container('maven'){
-		sh 'mvn clean install'
+		//sh 'mvn clean install'
 		}
 		
 		}
 		stage('docker'){
 		container('docker'){
-		 sh 'docker build . -t  CIProject:latest'
+		 sh 'docker build . -t  ciproject:latest'
 		//sh 'docker login nexus.do --username=admin --password=admin123'
 		//sh 'docker push nexus.do/demo:latest'
 		}
@@ -38,8 +38,8 @@ podTemplate(label: 'mypod', containers: [
 		
 		stage('deployment'){
 		container('kubectl'){
-		   sh'kubectl apply -f bouda-deploy.yaml'
-		  sh 'kubectl expose deployment bouda --type=NodePort --port=8080'
+		   sh'kubectl apply -f deployment.yaml'
+		  sh 'kubectl expose deployment ciproject --type=NodePort --port=8080'
 		}
 		}
 	  

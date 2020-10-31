@@ -17,7 +17,7 @@ podTemplate(label: 'mypod', containers: [
 		}
 		stage('Git checkout'){
 		container('git'){
-		git  url: 'https://github.com/belighmanai/CI-Project'
+		checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CheckoutOption', timeout: 5], [$class: 'CloneOption', noTags: false, reference: '', shallow: false, timeout: 5]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0a5ad7f4-7fa9-4d2b-982e-997e5c27b591', url: 'https://github.com/belighmanai/CI-Project/']]])
 		// this a comment
 		}
 		}

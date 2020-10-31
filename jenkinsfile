@@ -12,7 +12,6 @@ podTemplate(label: 'mypod', containers: [
   ) {
       node('mypod'){
 	    stage('Initialization'){
-		sh'echo "${WORKSPACE}"'
 		cleanWs()
 		}
 		stage('Git checkout'){
@@ -45,6 +44,8 @@ podTemplate(label: 'mypod', containers: [
 		   sh'kubectl apply -f deployment.yaml'
 		   sh'kubectl set image deployment ciproject  ciproject=ciproject_$BUILD_NUMBER:latest '
 		  sh 'kubectl expose deployment ciproject --type=NodePort --port=8081|| true'
+		  //test webhook
+		  
 		}
 		}
 	  

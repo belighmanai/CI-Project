@@ -18,7 +18,7 @@ podTemplate(label: 'mypod', containers: [
 		stage('Git checkout'){
 		container('git'){
 		git credentialsId: 'bouda', url: 'https://github.com/MedHammedi/CI-Project'
-		
+		// this a comment
 		}
 		}
 		stage('build'){

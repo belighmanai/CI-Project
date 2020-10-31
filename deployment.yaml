@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ciproject
+  labels:
+    app: ciproject
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ciproject
+  template:
+    metadata:
+      labels:
+        app: ciproject
+    spec:
+      containers:
+      - name: ciproject
+        image: CIProject:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080

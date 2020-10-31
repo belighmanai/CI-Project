@@ -30,7 +30,7 @@ podTemplate(label: 'mypod', containers: [
 		}
 		stage('docker'){
 		container('docker'){
-		//sh'docker build . -t nexus.do/demo:latest'
+		 sh 'docker build . -t  CIProject:latest'
 		//sh 'docker login nexus.do --username=admin --password=admin123'
 		//sh 'docker push nexus.do/demo:latest'
 		}
@@ -38,8 +38,8 @@ podTemplate(label: 'mypod', containers: [
 		
 		stage('deployment'){
 		container('kubectl'){
-		//sh'kubectl apply -f bouda-deploy.yaml'
-		//sh 'kubectl expose deployment bouda --type=NodePort --port=8080 -n dev'
+		   sh'kubectl apply -f bouda-deploy.yaml'
+		  sh 'kubectl expose deployment bouda --type=NodePort --port=8080'
 		}
 		}
 	  

@@ -33,9 +33,9 @@ podTemplate(label: 'mypod', containers: [
 		stage('docker'){
 		container('docker'){
 		 sh 'docker build . -t  ciproject_$BUILD_NUMBER:latest'
-		 sh 'docker tag ciproject_$BUILD_NUMBER:latest nexus.com/ciproject_$BUILD_NUMBER:latest '
-	     sh 'docker login nexus.com:32068 --username=admin --password=admin123'
-		 sh 'docker push nexus.com/ciproject_$BUILD_NUMBER:latest'
+		 sh 'docker tag ciproject_$BUILD_NUMBER:latest 192.168.99.100:32068/ciproject_$BUILD_NUMBER:latest '
+	     sh 'docker login 192.168.99.100:32068 --username=admin --password=admin123'
+		 sh 'docker push 192.168.99.100:32068/ciproject_$BUILD_NUMBER:latest'
 		}
 		}
 		

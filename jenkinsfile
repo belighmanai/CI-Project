@@ -25,6 +25,8 @@ podTemplate(label: 'mypod', containers: [
 		//second test
 		container('maven'){
 		sh 'mvn clean install'
+		
+		sh'ls target/*'
 		}
 		
 		}

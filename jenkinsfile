@@ -42,7 +42,7 @@ podTemplate(label: 'mypod', containers: [
 		stage('deployment'){
 		container('kubectl'){
 		   sh'kubectl apply -f deployment.yaml'
-		   sh'kubectl set image deployment ciproject  ciproject=ciproject_$BUILD_URL:latest '
+		   sh'kubectl set image deployment ciproject  ciproject=ciproject_$BUILD_NUMBER:latest '
 		  sh 'kubectl expose deployment ciproject --type=NodePort --port=8081|| true'
 		}
 		}

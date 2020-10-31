@@ -32,16 +32,17 @@ podTemplate(label: 'mypod', containers: [
 		}
 		stage('docker'){
 		container('docker'){
-		 sh 'docker build . -t  ciproject:latest'
-		//sh 'docker login nexus.do --username=admin --password=admin123'
-		//sh 'docker push nexus.do/demo:latest'
+		 sh 'docker build . -t  ciproject_$BUILD_URL:latest'
+	     sh 'docker login nexus.com --username=admin --password=admin123
+		 sh 'docker push nexus.com/ciproject_$BUILD_URL:latest'
 		}
 		}
 		
 		stage('deployment'){
 		container('kubectl'){
 		   sh'kubectl apply -f deployment.yaml'
-		  sh 'kubectl expose deployment ciproject --type=NodePort --port=8080'
+		   sh'kubectl set image deployment ciproject  ciproject=ciproject_$BUILD_URL:latest '
+		  sh 'kubectl expose deployment ciproject --type=NodePort --port=8081|| true'
 		}
 		}
 	  

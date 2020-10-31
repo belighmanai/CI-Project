@@ -13,7 +13,7 @@ podTemplate(label: 'mypod', containers: [
       node('mypod'){
 	    stage('Initialization'){
 		sh'echo "${WORKSPACE}"'
-		//cleanWs()
+		cleanWs()
 		}
 		stage('Git checkout'){
 		container('git'){
@@ -24,7 +24,7 @@ podTemplate(label: 'mypod', containers: [
 		stage('build'){
 		//second test
 		container('maven'){
-		//sh 'mvn clean install'
+		sh 'mvn clean install'
 		}
 		
 		}

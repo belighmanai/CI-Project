@@ -32,10 +32,10 @@ podTemplate(label: 'mypod', containers: [
 		}
 		stage('docker'){
 		container('docker'){
-		 sh 'docker build . -t  ciproject_$BUILD_URL:latest'
-		 sh 'docker tag ciproject_$BUILD_URL:latest nexus.com/ciproject_$BUILD_URL:latest '
+		 sh 'docker build . -t  ciproject_$BUILD_NUMBER:latest'
+		 sh 'docker tag ciproject_$BUILD_NUMBER:latest nexus.com/ciproject_$BUILD_NUMBER:latest '
 	     sh 'docker login nexus.com:32068 --username=admin --password=admin123'
-		 sh 'docker push nexus.com/ciproject_$BUILD_URL:latest'
+		 sh 'docker push nexus.com/ciproject_$BUILD_NUMBER:latest'
 		}
 		}
 		

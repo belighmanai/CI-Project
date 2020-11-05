@@ -36,7 +36,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	private static final Logger l = LogManager.getLogger(TimesheetServiceImpl.class);
 	
 	public int ajouterMission(Mission mission) {
-		l.info("In Add Mission : "+ mission);
+		l.info("In Add Missions: "+ mission);
 		missionRepository.save(mission);
 		l.info("Out Add Mission");
 		return mission.getId();
@@ -48,7 +48,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		Departement dep = deptRepoistory.findById(depId).get();
 		mission.setDepartement(dep);
 		missionRepository.save(mission);
-		l.info("Out AffecterMissionDepartement");
+		l.info("TEst MEd");
 		
 	}
 

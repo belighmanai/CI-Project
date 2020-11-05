@@ -3,6 +3,8 @@ package tn.esprit.spring.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +22,19 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	@Autowired
 	DepartementRepository deptRepoistory;
 	
+	private static final Logger l = LogManager.getLogger(EntrepriseServiceImpl.class);
+	
 	public int ajouterEntreprise(Entreprise entreprise) {
+		l.info("In Add Entreprise : "+ entreprise);
 		entrepriseRepoistory.save(entreprise);
+		l.info("Out Add Entreprise");
 		return entreprise.getId();
 	}
 
 	public int ajouterDepartement(Departement dep) {
+		l.info("In Add Department : "+ dep);
 		deptRepoistory.save(dep);
+		l.info("Out Add Department");
 		return dep.getId();
 	}
 	
@@ -36,11 +44,13 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 				// ==> c'est l'objet departement(le master) qui va mettre a jour l'association
 				//Rappel : la classe qui contient mappedBy represente le bout Slave
 				//Rappel : Dans une relation oneToMany le mappedBy doit etre du cote one.
+				l.info("In AffecterDepartementEntreprise");
 				Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).get();
 				Departement depManagedEntity = deptRepoistory.findById(depId).get();
 				
 				depManagedEntity.setEntreprise(entrepriseManagedEntity);
 				deptRepoistory.save(depManagedEntity);
+				l.info("Out AffecterDepartementEntreprise");
 		
 	}
 	

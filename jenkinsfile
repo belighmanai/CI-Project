@@ -45,7 +45,7 @@ podTemplate(label: 'mypod', containers: [
 		   sh'kubectl set image deployment ciproject  ciproject=ciproject_$BUILD_NUMBER:latest '
 		  sh 'kubectl expose deployment ciproject --type=NodePort --port=8010|| true'
 		  //test webhook2
-		  //test webhook
+		
 		  
 		}
 		}

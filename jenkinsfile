@@ -16,7 +16,7 @@ podTemplate(label: 'mypod', containers: [
 		}
 		stage('Git checkout'){
 		container('git'){
-		checkout([$class: 'GitSCM', branches: [[name: '*/AFAS']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CheckoutOption', timeout: 5], [$class: 'CloneOption', noTags: false, reference: '', shallow: false, timeout: 5]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0a5ad7f4-7fa9-4d2b-982e-997e5c27b591', url: 'https://github.com/belighmanai/CI-Project/']]])
+		checkout([$class: 'GitSCM', branches: [[name: '*/AFAS']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CheckoutOption', timeout: 100], [$class: 'CloneOption', noTags: false, reference: '', shallow: false, timeout: 100]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0a5ad7f4-7fa9-4d2b-982e-997e5c27b591', url: 'https://github.com/belighmanai/CI-Project/']]])
 		// this a comment
 		}
 		}
@@ -43,7 +43,7 @@ podTemplate(label: 'mypod', containers: [
 		container('kubectl'){
 		   sh'kubectl apply -f deployment.yaml'
 		   sh'kubectl set image deployment ciproject  ciproject=ciproject_$BUILD_NUMBER:latest '
-		  sh 'kubectl expose deployment ciproject --type=NodePort --port=8081|| true'
+		  sh 'kubectl expose deployment ciproject --type=NodePort --port=8010|| true'
 		  //test webhook
 		  
 		}

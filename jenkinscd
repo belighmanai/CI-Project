@@ -1,16 +1,16 @@
 pipeline {
     agent any
     environment {
-        registry = 'belighm/continuousdelivery'
+        registry = 'arinataka/cd_project'
         dockerImage = ''
-        registryCredential = 'dockerhub_id'
+        registryCredential = 'docker-id'
 
     }
     stages{ 
         
         stage('checkout'){ 
         steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/AFAS']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CheckoutOption', timeout: 100], [$class: 'CloneOption', noTags: false, reference: '', shallow: false, timeout: 100]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0a5ad7f4-7fa9-4d2b-982e-997e5c27b591', url: 'https://github.com/belighmanai/CI-Project/']]])
+               checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '726711f4-103b-487b-aee0-8cad15c56626', url: 'https://github.com/Moetez-abidi/testjenk']]])
         }
         }
         stage('Building image') {

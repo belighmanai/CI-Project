@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    environment {
+        registry = 'belighm/continuousdelivery'
+        dockerImage = ''
+        registryCredential = 'dockerhub_id'
+
+    }
+    stages{ 
+        
+        stage('checkout'){ 
+        steps {
+              checkout([$class: 'GitSCM', branches: [[name: '*/AFAS']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CheckoutOption', timeout: 100], [$class: 'CloneOption', noTags: false, reference: '', shallow: false, timeout: 100]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0a5ad7f4-7fa9-4d2b-982e-997e5c27b591', url: 'https://github.com/belighmanai/CI-Project/']]])
+        }
+        }
+        stage('Building image') {
+        steps{
+            script {
+          dockerImage = docker.build registry
+                }
+            }
+        }
+        stage('Upload Image') {
+        steps{    
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+                }
+                }
+            }
+        }
+        
+    } 
+}

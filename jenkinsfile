@@ -16,14 +16,18 @@ podTemplate(label: 'mypod', containers: [
 		}
 		stage('Git checkout'){
 		container('git'){
+		  retry(5){
 		checkout([$class: 'GitSCM', branches: [[name: '*/AFAS']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CheckoutOption', timeout: 100], [$class: 'CloneOption', noTags: false, reference: '', shallow: false, timeout: 100]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0a5ad7f4-7fa9-4d2b-982e-997e5c27b591', url: 'https://github.com/belighmanai/CI-Project/']]])
 		// this a comment for webhooks
+		}
+		    
 		}
 		}
 		stage('build'){
 		//second test
 		container('maven'){
-		sh 'mvn clean install  sonar:sonar  -Dsonar.host.url=http://192.168.99.1:9000  -Dsonar.login=287ea60b9ad30491df0b8e9867a52bbbbed9704b'
+		sh 'mvn clean install'
+		//sonar:sonar  -Dsonar.host.url=http://192.168.99.1:9000  -Dsonar.login=287ea60b9ad30491df0b8e9867a52bbbbed9704b'
 
 		
 		
@@ -35,12 +39,12 @@ podTemplate(label: 'mypod', containers: [
 		 sh 'docker build . -t  ciproject_$BUILD_NUMBER:latest'
 		 sh 'docker tag ciproject_$BUILD_NUMBER:latest 192.168.99.100:32068/ciproject_$BUILD_NUMBER:latest'
 	
-		 sh 'docker tag ciproject_$BUILD_NUMBER:latest belighm/continuousdelivery/ciproject_$BUILD_NUMBER:latest'
+		 sh 'docker tag ciproject_$BUILD_NUMBER:latest docker.io/belighm/ciproject_$BUILD_NUMBER:latest'
 	     sh 'docker login 192.168.99.100:32068 --username=admin --password=admin123'
 		 sh 'docker push 192.168.99.100:32068/ciproject_$BUILD_NUMBER:latest'
 		 sh 'docker logout 192.168.99.100:32068'
-		  sh 'docker login  --username=belighm --password=Beligh95 --email=beligh.manai@esprit.tn'
-		  sh 'docker push  belighm/continuousdelivery/ciproject_$BUILD_NUMBER:latest'
+		  sh 'docker login docker.io --username=belighm --password=Beligh95'
+		  sh 'docker push  docker.io/belighm/ciproject_$BUILD_NUMBER:latest'
 		  
 		}
 		}
